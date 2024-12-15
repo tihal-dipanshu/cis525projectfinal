@@ -7,7 +7,15 @@ $usn=$_POST['usn'];
 
 include_once 'classes/db1.php';
 
-$result = mysqli_query($conn, "SELECT * FROM registered r,staff_coordinator s ,event_info ef ,student_coordinator st,events e where e.event_id= ef.event_id and e.event_id= s.event_id and e.event_id= st.event_id and r.usn= '$usn' and r.event_id=e.event_id");
+$result = mysqli_query($conn, "
+    SELECT *
+    FROM registered r
+    JOIN events e ON r.event_id = e.event_id
+    JOIN staff_coordinator s ON e.event_id = s.event_id
+    JOIN event_info ef ON e.event_id = ef.event_id
+    JOIN student_coordinator st ON e.event_id = st.event_id
+    WHERE r.usn = '$usn'
+");
 ?>
 
 <div class = "content">
