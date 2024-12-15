@@ -42,7 +42,7 @@ if (isset($_POST["update"])) {
     $mypassword = $_POST['password'];
 
     // Query to validate user from the database
-    $query = "SELECT * FROM participent WHERE name = ? AND password = ?";
+    $query = "SELECT * FROM participent WHERE name = ? AND password = MD5(?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $myusername, $mypassword); // Bind parameters
     $stmt->execute();
